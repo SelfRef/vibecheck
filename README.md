@@ -26,6 +26,14 @@ long-running sessions, and the top subagents and MCP servers.
 > changes, but a Claude Code or server-side change may temporarily break live
 > data.
 
+Vibecheck is developed in my free time, mostly by burning through the very
+limits it tracks. If it saved you from a surprise rate limit, help me keep my
+Claude subscription paid:
+
+[![Support me on Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/N5E229GJPZ)
+[![Sponsor on GitHub](https://img.shields.io/badge/Sponsor-EA4AAA?style=for-the-badge&logo=githubsponsors&logoColor=white)](https://github.com/sponsors/SelfRef)
+[![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/SelfRef/donate)
+
 ## Status
 
 The project targets the maintained GNOME Shell releases, 50 and 51, under X11
