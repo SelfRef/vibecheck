@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- An About page in the preferences with the author, the source code, issue
+  reporting, the license, credits, and links to support development.
+
 ## [1.1.1] - 2026-10-22
 
 ### Changed

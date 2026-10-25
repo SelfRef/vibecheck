@@ -28,6 +28,9 @@ msgstr ""
 msgid "0 places it before the other icons in the area."
 msgstr ""
 
+msgid "About"
+msgstr ""
+
 msgid "Anthropic is currently unavailable."
 msgstr ""
 
@@ -35,6 +38,9 @@ msgid "Anthropic returned an invalid response."
 msgstr ""
 
 msgid "Appearance"
+msgstr ""
+
+msgid "Author"
 msgstr ""
 
 msgid "Both"
@@ -74,6 +80,36 @@ msgid "Claude Code credentials were not found. Sign in to continue."
 msgstr ""
 
 msgid "Claude plan"
+msgstr ""
+
+msgid "Could not open the link."
+msgstr ""
+
+msgid "Credits"
+msgstr ""
+
+msgid "Forked from Claudeland by %s"
+msgstr ""
+
+msgid "License"
+msgstr ""
+
+msgid "Project"
+msgstr ""
+
+msgid "Report an issue"
+msgstr ""
+
+msgid "Source code"
+msgstr ""
+
+msgid "Support development"
+msgstr ""
+
+msgid "Unofficial and not affiliated with Anthropic."
+msgstr ""
+
+msgid "Version %s"
 msgstr ""
 
 msgid "Vibecheck"
@@ -293,6 +329,9 @@ msgid "Use the critical color below this percentage."
 msgstr ""
 
 msgid "Use the warning color below this percentage."
+msgstr ""
+
+msgid "Vibecheck is developed in my free time, mostly by burning through the very limits it tracks. If it saved you from a surprise rate limit, help me keep my Claude subscription paid."
 msgstr ""
 
 msgid "Weekly · %s"

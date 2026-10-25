@@ -70,6 +70,8 @@ Open them from the top bar menu, the desktop card's right-click menu, or
   that turn a limit yellow or red.
 - **Data source:** whether Claude Code is installed and signed in, a switch to
   request usage directly, and a sign-in button when one is needed.
+- **About:** the version, author, source code, license, credits, and links to
+  support development.
 
 ## Requirements
 

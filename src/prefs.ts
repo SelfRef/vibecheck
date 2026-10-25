@@ -1,5 +1,6 @@
 import Adw from 'gi://Adw';
 import Gio from 'gi://Gio';
+import GLib from 'gi://GLib';
 import Gtk from 'gi://Gtk';
 
 import {
@@ -16,6 +17,15 @@ const PANEL_ICONS = ['none', 'color', 'mono'] as const;
 const PANEL_LIMITS = ['five_hour', 'seven_day', 'lowest', 'none'] as const;
 const PANEL_RESETS = ['five_hour', 'seven_day', 'both', 'none'] as const;
 const INSIGHT_PLACES = ['both', 'menu', 'card', 'none'] as const;
+
+const REPOSITORY = 'https://github.com/SelfRef/vibecheck';
+const AUTHOR = 'SelfRef';
+const ORIGINAL_AUTHOR = 'FabioSM46';
+const DONATIONS = [
+	['Ko-fi', 'https://ko-fi.com/N5E229GJPZ'],
+	['GitHub Sponsors', 'https://github.com/sponsors/SelfRef'],
+	['Liberapay', 'https://liberapay.com/SelfRef/donate'],
+] as const;
 
 export default class VibecheckPreferences extends ExtensionPreferences {
 	async fillPreferencesWindow(window: Adw.PreferencesWindow): Promise<void> {
@@ -268,7 +278,114 @@ export default class VibecheckPreferences extends ExtensionPreferences {
 			auth.destroy();
 			return false;
 		});
+
+		window.add(this.aboutPage(window));
 	}
+
+	private aboutPage(window: Adw.PreferencesWindow): Adw.PreferencesPage {
+		const page = new Adw.PreferencesPage({
+			title: _('About'),
+			icon_name: 'help-about-symbolic',
+		});
+
+		const header = new Gtk.Box({
+			orientation: Gtk.Orientation.VERTICAL,
+			spacing: 6,
+		});
+		header.append(
+			new Gtk.Image({
+				gicon: Gio.icon_new_for_string(`${this.path}/icons/vibecheck-symbolic.svg`),
+				pixel_size: 96,
+				margin_bottom: 12,
+			}),
+		);
+		header.append(new Gtk.Label({ label: _('Vibecheck'), css_classes: ['title-1'] }));
+		const version = this.metadata['version-name'];
+		if (version) {
+			header.append(
+				new Gtk.Label({
+					label: _('Version %s').replace('%s', version),
+					css_classes: ['dimmed'],
+				}),
+			);
+		}
+		header.append(
+			new Gtk.Label({
+				label: _('Unofficial and not affiliated with Anthropic.'),
+				css_classes: ['caption', 'dimmed'],
+				wrap: true,
+				justify: Gtk.Justification.CENTER,
+			}),
+		);
+		const headerGroup = new Adw.PreferencesGroup();
+		headerGroup.add(header);
+		page.add(headerGroup);
+
+		const project = new Adw.PreferencesGroup({ title: _('Project') });
+		page.add(project);
+		project.add(linkRow(window, _('Author'), AUTHOR, `https://github.com/${AUTHOR}`));
+		project.add(linkRow(window, _('Source code'), withoutScheme(REPOSITORY), REPOSITORY));
+		project.add(
+			linkRow(
+				window,
+				_('Report an issue'),
+				withoutScheme(`${REPOSITORY}/issues`),
+				`${REPOSITORY}/issues`,
+			),
+		);
+		project.add(linkRow(window, _('License'), 'MIT', `${REPOSITORY}/blob/master/LICENSE`));
+		project.add(
+			linkRow(
+				window,
+				_('Credits'),
+				_('Forked from Claudeland by %s').replace('%s', ORIGINAL_AUTHOR),
+				`https://github.com/${ORIGINAL_AUTHOR}`,
+			),
+		);
+
+		const support = new Adw.PreferencesGroup({
+			title: _('Support development'),
+			description: _(
+				'Vibecheck is developed in my free time, mostly by burning through the very limits it tracks. If it saved you from a surprise rate limit, help me keep my Claude subscription paid.',
+			),
+		});
+		page.add(support);
+		for (const [name, uri] of DONATIONS) {
+			support.add(linkRow(window, name, withoutScheme(uri), uri));
+		}
+
+		return page;
+	}
+}
+
+function linkRow(
+	window: Adw.PreferencesWindow,
+	title: string,
+	subtitle: string,
+	uri: string,
+): Adw.ActionRow {
+	const row = new Adw.ActionRow({ title, subtitle, activatable: true });
+	row.add_suffix(new Gtk.Image({ icon_name: 'adw-external-link-symbolic' }));
+	row.connect('activated', () => {
+		const launcher = new Gtk.UriLauncher({ uri });
+		launcher.launch(window, null, (_source, result) => {
+			try {
+				launcher.launch_finish(result);
+			} catch (error) {
+				if (
+					!(error instanceof GLib.Error) ||
+					!error.matches(Gtk.DialogError, Gtk.DialogError.DISMISSED)
+				) {
+					window.add_toast(new Adw.Toast({ title: _('Could not open the link.') }));
+				}
+			}
+		});
+	});
+	return row;
+}
+
+function withoutScheme(uri: string): string {
+	return uri.replace(/^https:\/\//, '');
 }
 
 function boundSwitch(

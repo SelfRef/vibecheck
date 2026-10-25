@@ -29,6 +29,9 @@ msgstr "%s · aktualisiert %s"
 msgid "0 places it before the other icons in the area."
 msgstr "0 platziert sie vor den anderen Symbolen im Bereich."
 
+msgid "About"
+msgstr "Info"
+
 msgid "Anthropic is currently unavailable."
 msgstr "Anthropic ist derzeit nicht verfügbar."
 
@@ -37,6 +40,9 @@ msgstr "Anthropic hat eine ungültige Antwort geliefert."
 
 msgid "Appearance"
 msgstr "Darstellung"
+
+msgid "Author"
+msgstr "Autor"
 
 msgid "Both"
 msgstr "Beide"
@@ -76,6 +82,36 @@ msgstr "Anmeldedaten von Claude Code wurden nicht gefunden. Melden Sie sich an, 
 
 msgid "Claude plan"
 msgstr "Claude-Plan"
+
+msgid "Could not open the link."
+msgstr "Der Link konnte nicht geöffnet werden."
+
+msgid "Credits"
+msgstr "Danksagungen"
+
+msgid "Forked from Claudeland by %s"
+msgstr "Fork von Claudeland von %s"
+
+msgid "License"
+msgstr "Lizenz"
+
+msgid "Project"
+msgstr "Projekt"
+
+msgid "Report an issue"
+msgstr "Problem melden"
+
+msgid "Source code"
+msgstr "Quellcode"
+
+msgid "Support development"
+msgstr "Entwicklung unterstützen"
+
+msgid "Unofficial and not affiliated with Anthropic."
+msgstr "Inoffiziell und nicht mit Anthropic verbunden."
+
+msgid "Version %s"
+msgstr "Version %s"
 
 msgid "Vibecheck"
 msgstr "Vibecheck"
@@ -295,6 +331,9 @@ msgstr "Unter diesem Prozentwert die kritische Farbe verwenden."
 
 msgid "Use the warning color below this percentage."
 msgstr "Unter diesem Prozentwert die Warnfarbe verwenden."
+
+msgid "Vibecheck is developed in my free time, mostly by burning through the very limits it tracks. If it saved you from a surprise rate limit, help me keep my Claude subscription paid."
+msgstr "Vibecheck entsteht in meiner Freizeit, vor allem indem ich genau die Limits aufbrauche, die es anzeigt. Wenn es Sie vor einem überraschenden Nutzungslimit bewahrt hat, helfen Sie mir, mein Claude-Abo zu bezahlen."
 
 msgid "Weekly · %s"
 msgstr "Wöchentlich · %s"
