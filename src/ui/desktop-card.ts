@@ -161,8 +161,9 @@ export class DesktopCard {
 			return;
 		}
 
+		const used = this.settings.get_boolean('show-used');
 		for (const limit of state.snapshot.limits) {
-			this.content.add_child(createLimitContent(limit));
+			this.content.add_child(createLimitContent(limit, used));
 		}
 		const insights = this.settings.get_string('show-insights');
 		if (state.insights?.length && (insights === 'both' || insights === 'card')) {

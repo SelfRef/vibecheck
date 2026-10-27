@@ -71,6 +71,14 @@ export default class VibecheckPreferences extends ExtensionPreferences {
 				1,
 			),
 		);
+		appearance.add(
+			boundSwitch(
+				settings,
+				'show-used',
+				_('Show used capacity'),
+				_('Show how much is used, as Claude does, instead of how much remains.'),
+			),
+		);
 		const panelLimitLabels = [
 			_('Current session'),
 			_('Weekly · all models'),

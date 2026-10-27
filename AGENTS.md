@@ -35,7 +35,8 @@ discovered at runtime, and what contributed to usage on this machine.
   `prefs.ts` must not import Shell, St, or Clutter.
 - Discover model-scoped limits dynamically; never hard-code model names.
 - New response shapes get a fixture and a parser test.
-- User-facing percentages are remaining capacity, not consumed.
+- User-facing percentages are remaining capacity by default; the `show-used`
+  setting switches every one of them to consumed. Thresholds stay on remaining.
 - Wrap user-facing strings in gettext and update `po/vibecheck.pot` and every
   `po/*.po` catalog.
 

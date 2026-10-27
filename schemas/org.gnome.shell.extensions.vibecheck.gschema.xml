@@ -59,6 +59,11 @@
 			<default>'color'</default>
 			<summary>Panel icon color: Claude orange, the panel foreground, or hidden</summary>
 		</key>
+		<key name="show-used" type="b">
+			<default>false</default>
+			<summary>Show used capacity instead of remaining capacity</summary>
+			<description>Applies to the top bar percentages, the menu, and the desktop card. Warning thresholds stay based on remaining capacity.</description>
+		</key>
 		<key name="show-insights" type="s">
 			<choices>
 				<choice value="both"/>

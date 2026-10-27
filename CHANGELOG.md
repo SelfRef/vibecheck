@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- A preferences switch to show used capacity, as Claude does, instead of
+  remaining capacity in the top bar, the menu, and the desktop card. Remaining
+  stays the default, and the warning thresholds still apply to what remains.
+
 ## [1.1.2] - 2026-10-25
 
 ### Added

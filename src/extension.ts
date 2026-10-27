@@ -36,6 +36,7 @@ export default class VibecheckExtension extends Extension {
 			'panel-secondary',
 			'panel-reset',
 			'panel-icon',
+			'show-used',
 			'warning-remaining',
 			'critical-remaining',
 		]) {

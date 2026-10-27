@@ -11,8 +11,9 @@ import {
 	type UsageLimit,
 } from '../domain/usage.js';
 
-/** One limit as label, remaining value, meter, and reset time. */
-export function createLimitContent(limit: UsageLimit): St.BoxLayout {
+/** One limit as label, remaining or used value, meter, and reset time. */
+export function createLimitContent(limit: UsageLimit, used: boolean): St.BoxLayout {
+	const percent = used ? limit.consumedPercent : limit.remainingPercent;
 	const content = new St.BoxLayout({
 		x_expand: true,
 		orientation: Clutter.Orientation.VERTICAL,
@@ -27,7 +28,7 @@ export function createLimitContent(limit: UsageLimit): St.BoxLayout {
 		}),
 	);
 	const value = new St.Label({
-		text: formatMessage(_('%s remaining'), formatPercent(limit.remainingPercent)),
+		text: formatMessage(used ? _('%s used') : _('%s remaining'), formatPercent(percent)),
 		style_class: `vibecheck-limit-value vibecheck-${limit.severity}`,
 	});
 	header.add_child(value);
@@ -38,7 +39,7 @@ export function createLimitContent(limit: UsageLimit): St.BoxLayout {
 		style_class: `vibecheck-progress-fill vibecheck-${limit.severity}`,
 	});
 	track.add_child(fill);
-	const fraction = Math.min(100, Math.max(0, limit.remainingPercent)) / 100;
+	const fraction = Math.min(100, Math.max(0, percent)) / 100;
 	const updateFillWidth = () => {
 		fill.width = Math.max(2, Math.round(track.width * fraction));
 	};

@@ -115,10 +115,11 @@ class UsageIndicatorImpl extends PanelMenu.Button {
 			return;
 		}
 
-		const percents = formatPanelPercents(state.snapshot.limits, [
-			this.settings.get_string('panel-primary'),
-			this.settings.get_string('panel-secondary'),
-		]);
+		const percents = formatPanelPercents(
+			state.snapshot.limits,
+			[this.settings.get_string('panel-primary'), this.settings.get_string('panel-secondary')],
+			this.settings.get_boolean('show-used'),
+		);
 		// The countdown advances with each poll rather than every minute.
 		const reset = formatPanelReset(
 			state.snapshot.limits,
@@ -166,8 +167,9 @@ class UsageIndicatorImpl extends PanelMenu.Button {
 		}
 
 		if (state.snapshot) {
+			const used = this.settings.get_boolean('show-used');
 			for (const limit of state.snapshot.limits) {
-				this.limitsSection.addMenuItem(createLimitRow(limit));
+				this.limitsSection.addMenuItem(createLimitRow(limit, used));
 			}
 		}
 
@@ -194,12 +196,12 @@ export const UsageIndicator = GObject.registerClass(
 	UsageIndicatorImpl as any,
 ) as unknown as typeof UsageIndicatorImpl;
 
-function createLimitRow(limit: UsageLimit): PopupMenu.PopupBaseMenuItem {
+function createLimitRow(limit: UsageLimit, used: boolean): PopupMenu.PopupBaseMenuItem {
 	const item = new PopupMenu.PopupBaseMenuItem({
 		reactive: false,
 		can_focus: false,
 	});
 	item.add_style_class_name('vibecheck-limit-item');
-	item.add_child(createLimitContent(limit));
+	item.add_child(createLimitContent(limit, used));
 	return item;
 }

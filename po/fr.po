@@ -20,6 +20,9 @@ msgstr "%dm"
 msgid "%s remaining"
 msgstr "%s restant"
 
+msgid "%s used"
+msgstr "%s utilisé"
+
 msgid "%s · stale"
 msgstr "%s · obsolète"
 
@@ -260,8 +263,14 @@ msgstr "Session · %s"
 msgid "Show a card below application windows. Right-click it to refresh."
 msgstr "Affiche une carte sous les fenêtres des applications. Clic droit pour l’actualiser."
 
+msgid "Show how much is used, as Claude does, instead of how much remains."
+msgstr "Affiche ce qui est utilisé, comme Claude, plutôt que ce qui reste."
+
 msgid "Show percentages in the GNOME top bar."
 msgstr "Affiche les pourcentages dans la barre supérieure de GNOME."
+
+msgid "Show used capacity"
+msgstr "Afficher la capacité utilisée"
 
 msgid "Shown after a slash, or None for a single value."
 msgstr "Affichée après une barre oblique, ou Aucun pour une seule valeur."

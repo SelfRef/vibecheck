@@ -147,6 +147,7 @@ describe('formatting', () => {
 		expect(formatPanelPercents(limits, ['five_hour', 'seven_day'])).toBe('80%/60%');
 		expect(formatPanelPercents(limits, ['seven_day', 'none'])).toBe('60%');
 		expect(formatPanelPercents(limits, ['seven_day', 'lowest'])).toBe('60%/40%');
+		expect(formatPanelPercents(limits, ['seven_day', 'lowest'], true)).toBe('40%/60%');
 		expect(formatPanelPercents([limit('five_hour', 80)], ['five_hour', 'seven_day'])).toBe(
 			'80%/--',
 		);

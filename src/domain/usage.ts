@@ -206,12 +206,16 @@ export function selectPanelLimit(limits: readonly UsageLimit[], choice: string):
 export function formatPanelPercents(
 	limits: readonly UsageLimit[],
 	choices: readonly string[],
+	used = false,
 ): string {
 	return choices
 		.filter((choice) => choice && choice !== 'none')
 		.map((choice) => {
 			const limit = selectPanelLimit(limits, choice);
-			return limit ? formatPercent(limit.remainingPercent) : '--';
+			if (!limit) {
+				return '--';
+			}
+			return formatPercent(used ? limit.consumedPercent : limit.remainingPercent);
 		})
 		.join('/');
 }
