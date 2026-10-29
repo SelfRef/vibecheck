@@ -1,0 +1,17 @@
+[
+	{
+		"label": "extension: run in nested shell",
+		// Installs the build, then runs a nested Wayland shell with its own settings database.
+		"command": "pnpm dev:nested",
+		"use_new_terminal": false,
+		"allow_concurrent_runs": false,
+		"reveal": "always"
+	},
+	{
+		"label": "extension: follow shell log",
+		"command": "journalctl --user -f -o cat /usr/bin/gnome-shell",
+		"use_new_terminal": false,
+		"allow_concurrent_runs": false,
+		"reveal": "always"
+	}
+]
