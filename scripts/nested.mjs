@@ -27,7 +27,14 @@ const shell = spawnSync(
 		'-c',
 		`gsettings set org.gnome.shell enabled-extensions "['${uuid}']" && exec gnome-shell --devkit --wayland`,
 	],
-	{ cwd: root, env: { ...process.env, XDG_CONFIG_HOME: config }, stdio: 'inherit' },
+	{
+		cwd: root,
+		// GTK's default Vulkan renderer never presents a frame on the nested
+		// compositor, so the preferences window would stay invisible. Apps the
+		// session bus starts, such as the preferences, inherit this.
+		env: { ...process.env, XDG_CONFIG_HOME: config, GSK_RENDERER: 'gl' },
+		stdio: 'inherit',
+	},
 );
 process.exit(shell.status ?? 1);
 
