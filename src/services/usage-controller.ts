@@ -6,6 +6,7 @@ import { canRenew, evaluateSession, isAccessTokenUsable } from '../domain/sessio
 import type { UsageInsightPeriod } from '../domain/usage-insights.js';
 import {
 	formatPlanLabel,
+	isSessionIdle,
 	normalizeUsage,
 	severityFor,
 	type NormalizeOptions,
@@ -33,7 +34,7 @@ type StateListener = (state: Readonly<UsageState>) => void;
 type UsageClient = Pick<ClaudeUsageClient, 'fetch' | 'destroy'>;
 type UsageAuth = Pick<ClaudeAuth, 'status' | 'renew' | 'destroy'>;
 type UsageCredentials = Pick<ClaudeCredentials, 'read'>;
-type UsageCli = Pick<ClaudeCliUsage, 'run' | 'destroy'>;
+type UsageCli = Pick<ClaudeCliUsage, 'run' | 'startSession' | 'destroy'>;
 
 export interface UsageControllerDependencies {
 	client?: UsageClient;
@@ -62,6 +63,12 @@ const RENEWAL_COOLDOWN_MS = 15 * 60 * 1000;
  */
 const INSIGHTS_INTERVAL_MS = 15 * 60 * 1000;
 
+/**
+ * How long to wait before prompting again to start a session, so a failing
+ * CLI or a usage report that lags behind cannot cause a prompt on every poll.
+ */
+const SESSION_START_COOLDOWN_MS = 15 * 60 * 1000;
+
 export class UsageController {
 	private readonly listeners = new Set<StateListener>();
 	private client: UsageClient | null;
@@ -71,6 +78,7 @@ export class UsageController {
 	private timeoutId: number | null = null;
 	private renewalBlockedUntil = 0;
 	private insightsRequestedAt = 0;
+	private sessionStartRequestedAt = 0;
 	private state: UsageState = {
 		snapshot: null,
 		loading: false,
@@ -150,6 +158,13 @@ export class UsageController {
 			if (!result.insights) {
 				void this.refreshInsights();
 			}
+			void this.startSessionIfIdle();
+			// Poll again right as the window ends, so the next one starts on time.
+			const reset = result.snapshot.limits.find((limit) => limit.id === 'five_hour')?.resetsAt;
+			const untilReset = reset ? (Date.parse(reset) - Date.now()) / 1000 : 0;
+			if (untilReset > 0 && this.settings.get_boolean('auto-start-session')) {
+				nextDelay = Math.min(nextDelay, untilReset + 5);
+			}
 		} catch (error) {
 			if (this.client !== client) {
 				return;
@@ -190,6 +205,31 @@ export class UsageController {
 		const report = await cli.run();
 		if (this.cli === cli && report) {
 			this.setState({ insights: report.insights });
+		}
+	}
+
+	/**
+	 * When enabled and no five-hour window is running, sends one cheap prompt
+	 * through Claude Code so the window starts counting now rather than at the
+	 * user's next request, then refreshes to show it.
+	 */
+	async startSessionIfIdle(): Promise<void> {
+		const cli = this.cli;
+		const snapshot = this.state.snapshot;
+		if (
+			!cli ||
+			!snapshot ||
+			!this.settings.get_boolean('auto-start-session') ||
+			!isSessionIdle(snapshot.limits) ||
+			Date.now() - this.sessionStartRequestedAt < SESSION_START_COOLDOWN_MS
+		) {
+			return;
+		}
+
+		this.sessionStartRequestedAt = Date.now();
+		const started = await cli.startSession(this.settings.get_string('auto-start-model'));
+		if (this.cli === cli && started) {
+			void this.refresh();
 		}
 	}
 

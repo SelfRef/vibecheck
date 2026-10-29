@@ -351,3 +351,27 @@ msgstr ""
 
 msgid "What drove usage on this machine over the last day and week, from Claude Code."
 msgstr ""
+
+msgid "Model"
+msgstr ""
+
+msgid "Session start"
+msgstr ""
+
+msgid "Start sessions automatically"
+msgstr ""
+
+msgid "Switch in the panel menu"
+msgstr ""
+
+msgid "The five-hour window starts with the first request after the previous one ends."
+msgstr ""
+
+msgid "Turn automatic session start on or off from the top bar menu."
+msgstr ""
+
+msgid "Used for the prompt. Haiku uses the least capacity."
+msgstr ""
+
+msgid "When no window is running, send a short prompt through Claude Code to start one."
+msgstr ""

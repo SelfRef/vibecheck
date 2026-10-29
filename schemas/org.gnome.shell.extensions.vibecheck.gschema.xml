@@ -87,6 +87,24 @@
 			<summary>Query the usage endpoint directly instead of through Claude Code</summary>
 			<description>Claude Code is used whenever it is installed unless this is set. Without Claude Code, usage is always requested directly.</description>
 		</key>
+		<key name="auto-start-session" type="b">
+			<default>false</default>
+			<summary>Start the five-hour session window automatically</summary>
+			<description>When no session window is running, sends a short prompt through Claude Code so the next window starts counting right away.</description>
+		</key>
+		<key name="auto-start-model" type="s">
+			<choices>
+				<choice value="haiku"/>
+				<choice value="sonnet"/>
+				<choice value="opus"/>
+			</choices>
+			<default>'haiku'</default>
+			<summary>Claude Code model alias used to start a session</summary>
+		</key>
+		<key name="show-session-switch" type="b">
+			<default>true</default>
+			<summary>Show a switch for automatic session start in the panel menu</summary>
+		</key>
 		<key name="refresh-interval" type="u">
 			<range min="1" max="60"/>
 			<default>5</default>

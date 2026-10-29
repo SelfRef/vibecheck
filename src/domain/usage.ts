@@ -105,6 +105,20 @@ export function severityFor(
 	return 'ok';
 }
 
+/**
+ * True when no five-hour window is running: it ended, or it never started and
+ * nothing was used. The next model request then opens a new one.
+ */
+export function isSessionIdle(limits: UsageLimit[], now = new Date()): boolean {
+	const session = limits.find((limit) => limit.id === 'five_hour');
+	if (!session) {
+		return false;
+	}
+	return session.resetsAt === null
+		? session.consumedPercent === 0
+		: Date.parse(session.resetsAt) <= now.getTime();
+}
+
 export function formatPercent(value: number): string {
 	const rounded = Math.round(value * 10) / 10;
 	return `${Number.isInteger(rounded) ? rounded.toFixed(0) : rounded.toFixed(1)}%`;

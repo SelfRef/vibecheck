@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A preferences switch to show used capacity, as Claude does, instead of
   remaining capacity in the top bar, the menu, and the desktop card. Remaining
   stays the default, and the warning thresholds still apply to what remains.
+- Automatic session start, off by default: when no five-hour window is
+  running, Vibecheck sends one short prompt through Claude Code with a
+  selectable model (Haiku by default) so the next window starts counting right
+  away. A switch in the panel menu turns it on or off and can be hidden.
 
 ## [1.1.2] - 2026-10-25
 

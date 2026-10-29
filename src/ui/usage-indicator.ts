@@ -85,6 +85,30 @@ class UsageIndicatorImpl extends PanelMenu.Button {
 		);
 		menu.addMenuItem(this.loginItem);
 
+		const sessionItem = new PopupMenu.PopupSwitchMenuItem(
+			_('Start sessions automatically'),
+			this.settings.get_boolean('auto-start-session'),
+		);
+		sessionItem.connectObject(
+			'toggled',
+			(_item: PopupMenu.PopupSwitchMenuItem, state: boolean) =>
+				this.settings.set_boolean('auto-start-session', state),
+			this,
+		);
+		const syncSessionItem = () => {
+			sessionItem.setToggleState(this.settings.get_boolean('auto-start-session'));
+			sessionItem.visible = this.settings.get_boolean('show-session-switch');
+		};
+		this.settings.connectObject(
+			'changed::auto-start-session',
+			syncSessionItem,
+			'changed::show-session-switch',
+			syncSessionItem,
+			this,
+		);
+		syncSessionItem();
+		menu.addMenuItem(sessionItem);
+
 		const refreshItem = new PopupMenu.PopupMenuItem(_('Refresh now'));
 		refreshItem.connectObject('activate', () => void this.controller.refresh(), this);
 		menu.addMenuItem(refreshItem);

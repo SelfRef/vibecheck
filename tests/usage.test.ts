@@ -10,6 +10,7 @@ import {
 	formatPlanLabel,
 	formatPercent,
 	formatTimeRemaining,
+	isSessionIdle,
 	localizedLimitLabel,
 	normalizeUsage,
 	severityFor,
@@ -152,6 +153,27 @@ describe('formatting', () => {
 			'80%/--',
 		);
 		expect(formatPanelPercents(limits, ['bogus'])).toBe('--');
+	});
+
+	it('detects when no five-hour session window is running', () => {
+		const now = new Date('2030-01-01T10:00:00Z');
+		const session = (consumedPercent: number, resetsAt: string | null) => [
+			{
+				id: 'five_hour',
+				label: 'five_hour',
+				consumedPercent,
+				remainingPercent: 100 - consumedPercent,
+				resetsAt,
+				group: null,
+				scope: null,
+				severity: 'ok' as const,
+			},
+		];
+		expect(isSessionIdle(session(0, null), now)).toBe(true);
+		expect(isSessionIdle(session(40, '2030-01-01T09:59:00Z'), now)).toBe(true);
+		expect(isSessionIdle(session(40, '2030-01-01T11:00:00Z'), now)).toBe(false);
+		expect(isSessionIdle(session(5, null), now)).toBe(false);
+		expect(isSessionIdle([], now)).toBe(false);
 	});
 
 	it('formats a compact panel countdown for the selected limit', () => {

@@ -352,3 +352,27 @@ msgstr "Semanal · todos os modelos"
 
 msgid "What drove usage on this machine over the last day and week, from Claude Code."
 msgstr "O que influenciou o uso neste computador no último dia e na última semana, segundo o Claude Code."
+
+msgid "Model"
+msgstr "Modelo"
+
+msgid "Session start"
+msgstr "Início da sessão"
+
+msgid "Start sessions automatically"
+msgstr "Iniciar sessões automaticamente"
+
+msgid "Switch in the panel menu"
+msgstr "Botão no menu do painel"
+
+msgid "The five-hour window starts with the first request after the previous one ends."
+msgstr "A janela de cinco horas começa com a primeira solicitação após o fim da anterior."
+
+msgid "Turn automatic session start on or off from the top bar menu."
+msgstr "Ative ou desative o início automático de sessões pelo menu da barra superior."
+
+msgid "Used for the prompt. Haiku uses the least capacity."
+msgstr "Usado para a solicitação. O Haiku consome a menor capacidade."
+
+msgid "When no window is running, send a short prompt through Claude Code to start one."
+msgstr "Quando nenhuma janela estiver em andamento, envia uma solicitação curta pelo Claude Code para iniciar uma."

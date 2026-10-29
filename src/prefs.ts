@@ -17,6 +17,7 @@ const PANEL_ICONS = ['none', 'color', 'mono'] as const;
 const PANEL_LIMITS = ['five_hour', 'seven_day', 'lowest', 'none'] as const;
 const PANEL_RESETS = ['five_hour', 'seven_day', 'both', 'none'] as const;
 const INSIGHT_PLACES = ['both', 'menu', 'card', 'none'] as const;
+const SESSION_MODELS = ['haiku', 'sonnet', 'opus'] as const;
 
 const REPOSITORY = 'https://github.com/SelfRef/vibecheck';
 const AUTHOR = 'SelfRef';
@@ -253,6 +254,40 @@ export default class VibecheckPreferences extends ExtensionPreferences {
 		loginRow.add_suffix(loginButton);
 		loginRow.activatable_widget = loginButton;
 		source.add(loginRow);
+
+		const session = new Adw.PreferencesGroup({
+			title: _('Session start'),
+			description: _(
+				'The five-hour window starts with the first request after the previous one ends.',
+			),
+		});
+		page.add(session);
+		session.add(
+			boundSwitch(
+				settings,
+				'auto-start-session',
+				_('Start sessions automatically'),
+				_('When no window is running, send a short prompt through Claude Code to start one.'),
+			),
+		);
+		const modelRow = boundCombo(
+			settings,
+			'auto-start-model',
+			_('Model'),
+			_('Used for the prompt. Haiku uses the least capacity.'),
+			SESSION_MODELS,
+			['Haiku', 'Sonnet', 'Opus'],
+		);
+		settings.bind('auto-start-session', modelRow, 'sensitive', Gio.SettingsBindFlags.GET);
+		session.add(modelRow);
+		session.add(
+			boundSwitch(
+				settings,
+				'show-session-switch',
+				_('Switch in the panel menu'),
+				_('Turn automatic session start on or off from the top bar menu.'),
+			),
+		);
 
 		const auth = new ClaudeAuth();
 		let checking = false;

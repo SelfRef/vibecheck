@@ -49,6 +49,11 @@ export default class VibecheckExtension extends Extension {
 			this,
 		);
 		this.settings.connectObject(
+			'changed::auto-start-session',
+			() => void this.controller?.startSessionIfIdle(),
+			this,
+		);
+		this.settings.connectObject(
 			'changed::show-insights',
 			() => {
 				this.controller?.redraw();

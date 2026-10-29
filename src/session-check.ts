@@ -212,6 +212,7 @@ async function main(): Promise<void> {
 			},
 			cli: {
 				run: async () => null,
+				startSession: async () => false,
 				destroy() {},
 			},
 		},
