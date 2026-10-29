@@ -20,6 +20,12 @@ It also shows what contributed to usage on this machine over the last day and
 week, as reported by Claude Code's `/usage`: long context, subagent-heavy or
 long-running sessions, and the top subagents and MCP servers.
 
+The five-hour window only starts with your first request after the previous
+one ends, so an idle morning can push its reset into your working afternoon.
+With **automatic session start** turned on, Vibecheck sends one short prompt to
+a cheap model (Haiku by default) as soon as no window is running, so the next
+one starts counting right away.
+
 > [!WARNING]
 > Anthropic does not document the usage data behind Claude Code's `/usage`
 > screen. Vibecheck reads it through Claude Code by default, which absorbs most
@@ -70,6 +76,9 @@ Open them from the top bar menu, the desktop card's right-click menu, or
   that turn a limit yellow or red.
 - **Data source:** whether Claude Code is installed and signed in, a switch to
   request usage directly, and a sign-in button when one is needed.
+- **Session start:** start the five-hour window automatically (off by
+  default), the model used to start it (Haiku, Sonnet, or Opus), and whether
+  the top bar menu shows a switch to turn it on or off (shown by default).
 - **About:** the version, author, source code, license, credits, and links to
   support development.
 
@@ -218,6 +227,9 @@ Follow logs with:
 journalctl --user -f -o cat /usr/bin/gnome-shell
 ```
 
+In Zed, both are available as the **extension: run in nested shell** and
+**extension: follow shell log** tasks.
+
 ## Authentication and data flow
 
 By default, and whenever Claude Code is installed, Vibecheck runs Claude Code's
@@ -251,8 +263,25 @@ normalizeUsage() ──> UsageSnapshot ──> panel + desktop card
 ```
 
 The extension polls at a configurable interval, with a minimum of one minute.
-It does not send prompts or create Claude conversations. A `429` preserves the
-last valid snapshot and backs off.
+A `429` preserves the last valid snapshot and backs off.
+
+### Automatic session start
+
+Off by default, Vibecheck sends no prompts and creates no Claude
+conversations. With automatic session start on, whenever the five-hour window
+has ended, or never started, it runs:
+
+```text
+claude -p 'Reply with OK.' --model haiku --tools '' --strict-mcp-config \
+       --setting-sources '' --no-session-persistence
+```
+
+The prompt has no tools, MCP servers, or hooks, and is not saved as a
+session, so it does not show up in the usage contributors either. While the
+setting is on, Vibecheck also polls right after the window resets instead of
+waiting for the next interval. After a prompt it waits fifteen minutes before
+sending another, so a failing Claude Code cannot prompt on every poll. It
+needs Claude Code installed, even with direct requests.
 
 ### Session renewal
 
