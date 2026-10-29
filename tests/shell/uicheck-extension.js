@@ -345,6 +345,25 @@ function checkCardMenu(card, controller, preferences) {
 	return failures;
 }
 
+/** The left-click menu shows usage; the actions are in the right-click menu. */
+function checkIndicatorMenus(indicator) {
+	const labels = (menu) =>
+		menu.box
+			.get_children()
+			.filter((child) => child instanceof PopupMenu.PopupBaseMenuItem && child.label)
+			.map((item) => item.label.text);
+	const failures = [];
+	const usage = labels(indicator.menu);
+	if (usage.includes('Refresh now') || usage.includes('Preferences')) {
+		failures.push(`the usage menu holds ${usage.join(',')}`);
+	}
+	const actions = labels(indicator.contextMenu).join(',');
+	if (actions !== 'Start sessions automatically,Refresh now,Preferences') {
+		failures.push(`the right-click menu holds ${actions || 'nothing'}`);
+	}
+	return failures;
+}
+
 export default class VibecheckUiCheck extends Extension {
 	_timeoutId = null;
 
@@ -385,6 +404,7 @@ export default class VibecheckUiCheck extends Extension {
 			}
 			failures.push(...checkInsights(controller, settings));
 			failures.push(...checkPanelLabel(controller, settings, indicator));
+			failures.push(...checkIndicatorMenus(indicator));
 			controller.emit({ snapshot: SNAPSHOT, planLabel: 'Claude Max 5x' });
 
 			indicator.menu.open();

@@ -103,7 +103,7 @@
 		</key>
 		<key name="show-session-switch" type="b">
 			<default>true</default>
-			<summary>Show a switch for automatic session start in the panel menu</summary>
+			<summary>Show a switch for automatic session start in the panel indicator's right-click menu</summary>
 		</key>
 		<key name="refresh-interval" type="u">
 			<range min="1" max="60"/>

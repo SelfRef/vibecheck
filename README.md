@@ -55,14 +55,15 @@ Tauri window cannot reliably behave like a desktop widget below every
 application on stock GNOME. Vibecheck therefore integrates with GNOME Shell
 directly:
 
-- the panel indicator is the stable default;
+- the panel indicator is the stable default: click it for usage, right-click
+  it to refresh, open the preferences, or switch automatic session start;
 - the optional desktop card is placed in GNOME's background actor group, so it
   stays below application windows and only receives clicks where the desktop
   shows; right-click it to refresh or open the preferences.
 
 ## Settings
 
-Open them from the top bar menu, the desktop card's right-click menu, or
+Open them by right-clicking the top bar indicator or the desktop card, or with
 `gnome-extensions prefs vibecheck@selfref.dev`.
 
 - **Top bar:** up to two remaining percentages (current session, weekly for
@@ -78,7 +79,8 @@ Open them from the top bar menu, the desktop card's right-click menu, or
   request usage directly, and a sign-in button when one is needed.
 - **Session start:** start the five-hour window automatically (off by
   default), the model used to start it (Haiku, Sonnet, or Opus), and whether
-  the top bar menu shows a switch to turn it on or off (shown by default).
+  the top bar indicator's right-click menu shows a switch to turn it on or off
+  (shown by default).
 - **About:** the version, author, source code, license, credits, and links to
   support development.
 

@@ -15,7 +15,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automatic session start, off by default: when no five-hour window is
   running, Vibecheck sends one short prompt through Claude Code with a
   selectable model (Haiku by default) so the next window starts counting right
-  away. A switch in the panel menu turns it on or off and can be hidden.
+  away. A switch in the panel indicator's right-click menu turns it on or off
+  and can be hidden.
+
+### Changed
+
+- Refresh now and Preferences moved from the panel indicator's menu to its
+  right-click menu, so a click shows usage only. The Menu key and Shift+F10
+  open it from the keyboard.
 
 ## [1.1.2] - 2026-10-25
 

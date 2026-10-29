@@ -27,6 +27,7 @@ class UsageIndicatorImpl extends PanelMenu.Button {
 	private readonly limitsSection: PopupMenu.PopupMenuSection;
 	private readonly insightsSection: PopupMenu.PopupMenuSection;
 	private readonly loginItem: PopupMenu.PopupMenuItem;
+	private readonly contextMenu: PopupMenu.PopupMenu;
 	private readonly unsubscribe: () => void;
 
 	constructor(
@@ -85,6 +86,42 @@ class UsageIndicatorImpl extends PanelMenu.Button {
 		);
 		menu.addMenuItem(this.loginItem);
 
+		// Actions live in a right-click menu, so the left-click one shows usage only.
+		this.contextMenu = new PopupMenu.PopupMenu(this, 0.5, St.Side.TOP);
+		this.contextMenu.actor.add_style_class_name('panel-menu');
+		Main.uiGroup.add_child(this.contextMenu.actor);
+		this.contextMenu.actor.hide();
+		// The manager drops the menu by itself when the menu is destroyed.
+		Main.panel.menuManager.addMenu(this.contextMenu);
+		// The Shell opens the usage menu on a press of any button.
+		for (const action of this.get_actions()) {
+			if (action instanceof Clutter.ClickGesture) {
+				action.connectObject(
+					'may-recognize',
+					() => action.get_button() !== Clutter.BUTTON_SECONDARY,
+					this,
+				);
+			}
+		}
+		const contextGesture = new Clutter.ClickGesture({ required_button: Clutter.BUTTON_SECONDARY });
+		contextGesture.set_recognize_on_press(true);
+		contextGesture.connectObject('recognize', () => this.contextMenu.toggle(), this);
+		this.add_action(contextGesture);
+		// The keyboard equivalents of a right-click.
+		this.connectObject(
+			'key-press-event',
+			(_actor: St.Widget, event: Clutter.Event) => {
+				const key = event.get_key_symbol();
+				const shift = (event.get_state() & Clutter.ModifierType.SHIFT_MASK) !== 0;
+				if (key !== Clutter.KEY_Menu && !(key === Clutter.KEY_F10 && shift)) {
+					return Clutter.EVENT_PROPAGATE;
+				}
+				this.contextMenu.toggle();
+				return Clutter.EVENT_STOP;
+			},
+			this,
+		);
+
 		const sessionItem = new PopupMenu.PopupSwitchMenuItem(
 			_('Start sessions automatically'),
 			this.settings.get_boolean('auto-start-session'),
@@ -107,21 +144,22 @@ class UsageIndicatorImpl extends PanelMenu.Button {
 			this,
 		);
 		syncSessionItem();
-		menu.addMenuItem(sessionItem);
+		this.contextMenu.addMenuItem(sessionItem);
 
 		const refreshItem = new PopupMenu.PopupMenuItem(_('Refresh now'));
 		refreshItem.connectObject('activate', () => void this.controller.refresh(), this);
-		menu.addMenuItem(refreshItem);
+		this.contextMenu.addMenuItem(refreshItem);
 
 		const settingsItem = new PopupMenu.PopupMenuItem(_('Preferences'));
 		settingsItem.connectObject('activate', openPreferences, this);
-		menu.addMenuItem(settingsItem);
+		this.contextMenu.addMenuItem(settingsItem);
 
 		this.unsubscribe = controller.subscribe((state) => this.render(state));
 	}
 
 	override destroy(): void {
 		this.unsubscribe();
+		this.contextMenu.destroy();
 		super.destroy();
 	}
 

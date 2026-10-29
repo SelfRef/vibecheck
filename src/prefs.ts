@@ -285,7 +285,7 @@ export default class VibecheckPreferences extends ExtensionPreferences {
 				settings,
 				'show-session-switch',
 				_('Switch in the panel menu'),
-				_('Turn automatic session start on or off from the top bar menu.'),
+				_('Turn automatic session start on or off by right-clicking the top bar indicator.'),
 			),
 		);
 

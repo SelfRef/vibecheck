@@ -368,8 +368,8 @@ msgstr "Schalter im Panelmenü"
 msgid "The five-hour window starts with the first request after the previous one ends."
 msgstr "Das Fünf-Stunden-Fenster beginnt mit der ersten Anfrage nach dem Ende des vorherigen."
 
-msgid "Turn automatic session start on or off from the top bar menu."
-msgstr "Den automatischen Sitzungsstart im Menü der oberen Leiste ein- oder ausschalten."
+msgid "Turn automatic session start on or off by right-clicking the top bar indicator."
+msgstr "Den automatischen Sitzungsstart per Rechtsklick auf die Anzeige in der oberen Leiste ein- oder ausschalten."
 
 msgid "Used for the prompt. Haiku uses the least capacity."
 msgstr "Wird für die Anfrage verwendet. Haiku verbraucht am wenigsten Kapazität."
