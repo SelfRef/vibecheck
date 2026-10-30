@@ -256,9 +256,8 @@ export class UsageController {
 		}
 		if (!report.rateLimits) {
 			// Claude Code reports no limits while signed out, and says nothing else.
-			const status = await this.auth?.status();
 			throw new VibecheckError(
-				status && !status.loggedIn ? 'not-authenticated' : 'claude-cli-failed',
+				(await this.isSignedOut()) ? 'not-authenticated' : 'claude-cli-failed',
 			);
 		}
 
@@ -315,6 +314,24 @@ export class UsageController {
 		}
 		this.renewalBlockedUntil = 0;
 		return result;
+	}
+
+	/**
+	 * Whether Claude Code needs an interactive sign-in. Its status alone is not
+	 * enough: after a failed renewal it clears the tokens from its credential
+	 * file but still reports itself signed in.
+	 */
+	private async isSignedOut(): Promise<boolean> {
+		const status = await this.auth?.status();
+		if (status && !status.loggedIn) {
+			return true;
+		}
+		try {
+			const credential = await this.credentials?.read();
+			return credential ? !canRenew(credential) : false;
+		} catch (error) {
+			return error instanceof VibecheckError && error.code === 'credentials-missing';
+		}
 	}
 
 	/** The plan named in Claude Code's credential file, which only the CLI writes. */

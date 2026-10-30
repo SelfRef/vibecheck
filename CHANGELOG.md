@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Vibecheck now asks you to sign in when the Claude session has expired.
+  Claude Code still reports itself signed in after its renewal fails, so
+  Vibecheck used to keep saying it could not report usage.
+
 ## [1.2.1] - 2026-10-30
 
 ### Fixed
