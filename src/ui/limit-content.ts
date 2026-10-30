@@ -51,7 +51,11 @@ export function createLimitContent(limit: UsageLimit, used: boolean): St.BoxLayo
 	content.add_child(track);
 	content.add_child(
 		new St.Label({
-			text: formatTimeRemaining(limit.resetsAt, new Date(), _),
+			// Between windows Claude reports nothing used and no reset time.
+			text:
+				limit.resetsAt === null && limit.consumedPercent === 0
+					? _('starts with your next request')
+					: formatTimeRemaining(limit.resetsAt, new Date(), _),
 			style_class: 'vibecheck-reset-label',
 			// Dimmed rather than recolored, so it follows a light or dark menu.
 			opacity: 180,

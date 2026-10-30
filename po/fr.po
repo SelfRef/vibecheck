@@ -376,3 +376,6 @@ msgstr "Utilisé pour la requête. Haiku consomme le moins de capacité."
 
 msgid "When no window is running, send a short prompt through Claude Code to start one."
 msgstr "Quand aucune fenêtre n’est en cours, envoyer une courte requête via Claude Code pour en démarrer une."
+
+msgid "starts with your next request"
+msgstr "commence à votre prochaine requête"

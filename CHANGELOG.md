@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automatic session start now also works while the screen is locked. GNOME
   used to disable Vibecheck on the lock screen, so no window started until
   the next unlock. The panel indicator and the desktop card stay hidden there.
+- A limit that has not started yet, such as the session between two windows,
+  now says it starts with your next request instead of "reset unavailable".
 
 ## [1.2.0] - 2026-10-29
 

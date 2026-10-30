@@ -375,3 +375,6 @@ msgstr ""
 
 msgid "When no window is running, send a short prompt through Claude Code to start one."
 msgstr ""
+
+msgid "starts with your next request"
+msgstr ""
