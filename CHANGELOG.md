@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.2] - 2026-10-30
+
 ### Fixed
 
 - Vibecheck now asks you to sign in when the Claude session has expired.
@@ -238,7 +240,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Keep the usage popup open when selecting “Refresh now”.
 
-[Unreleased]: https://github.com/SelfRef/vibecheck/compare/v1.2.1...HEAD
+[Unreleased]: https://github.com/SelfRef/vibecheck/compare/v1.2.2...HEAD
+[1.2.2]: https://github.com/SelfRef/vibecheck/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/SelfRef/vibecheck/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/SelfRef/vibecheck/compare/v1.1.2...v1.2.0
 [1.1.2]: https://github.com/SelfRef/vibecheck/compare/v1.1.1...v1.1.2
