@@ -18,6 +18,9 @@ export default class VibecheckExtension extends Extension {
 		this.settings = this.getSettings();
 		this.controller = new UsageController(this.settings);
 
+		// The extension stays enabled on the lock screen, so automatic session
+		// start keeps working while the user is away, but shows nothing there.
+		Main.sessionMode.connectObject('updated', () => this.syncSurfaces(), this);
 		this.settings.connectObject('changed::show-panel', () => this.syncSurfaces(), this);
 		this.settings.connectObject('changed::show-desktop-widget', () => this.syncSurfaces(), this);
 		this.settings.connectObject(
@@ -76,6 +79,7 @@ export default class VibecheckExtension extends Extension {
 		this.controller = null;
 		releaseClockSettings();
 
+		Main.sessionMode.disconnectObject(this);
 		this.settings?.disconnectObject(this);
 		this.settings = null;
 	}
@@ -85,7 +89,8 @@ export default class VibecheckExtension extends Extension {
 			return;
 		}
 
-		const showPanel = this.settings.get_boolean('show-panel');
+		const locked = Main.sessionMode.isLocked;
+		const showPanel = !locked && this.settings.get_boolean('show-panel');
 		if (showPanel && !this.indicator) {
 			this.indicator = new UsageIndicator(this.controller, this.settings, this.path, () =>
 				this.openPreferences(),
@@ -115,7 +120,7 @@ export default class VibecheckExtension extends Extension {
 			this.indicator = null;
 		}
 
-		const showDesktop = this.settings.get_boolean('show-desktop-widget');
+		const showDesktop = !locked && this.settings.get_boolean('show-desktop-widget');
 		if (showDesktop && !this.desktopCard) {
 			try {
 				this.desktopCard = new DesktopCard(this.controller, this.settings, () =>

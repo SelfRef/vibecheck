@@ -285,6 +285,9 @@ waiting for the next interval. After a prompt it waits fifteen minutes before
 sending another, so a failing Claude Code cannot prompt on every poll. It
 needs Claude Code installed, even with direct requests.
 
+Vibecheck keeps running on the lock screen, so a window also starts while you
+are away, but the panel indicator and the desktop card are hidden there.
+
 ### Session renewal
 
 With direct requests, Vibecheck handles an expired access token itself. Claude
