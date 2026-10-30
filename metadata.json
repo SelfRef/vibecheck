@@ -2,7 +2,7 @@
 	"uuid": "vibecheck@selfref.dev",
 	"name": "Vibecheck: Claude Usage",
 	"description": "Monitor remaining Claude plan usage in the GNOME panel and on a desktop card.\n\nShows the five-hour window, weekly limits, dynamically discovered model limits, and what contributed to usage on this machine.\n\nRequires Claude Code. Usage is read by periodically running Claude Code's /usage command, so Claude Code handles the session and contacts Anthropic. The plan name is read from Claude Code's local credential file.\n\nOptionally, usage can be requested directly: the extension then sends that OAuth credential only to api.anthropic.com, and asks the Claude Code CLI to renew it when it expires. Signing in always happens in Claude Code.\n\nUnofficial and not affiliated with Anthropic.",
-	"version-name": "1.2.0",
+	"version-name": "1.2.1",
 	"shell-version": ["50", "51"],
 	"session-modes": ["user", "unlock-dialog"],
 	"gettext-domain": "vibecheck",
