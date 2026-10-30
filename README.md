@@ -1,11 +1,29 @@
-<p align="center"><img src=".github/logo.svg" width="160" alt=""></p>
+<p align="center">
+  <img src=".github/logo.svg" width="128" alt="Vibecheck icon">
+</p>
 
-# Vibecheck
+<h1 align="center">Vibecheck</h1>
+
+<p align="center">Claude plan usage in the GNOME top bar and on your desktop.</p>
+
+<p align="center">
+  <a href="https://github.com/SelfRef/vibecheck/actions/workflows/ci.yml"><img src="https://github.com/SelfRef/vibecheck/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+</p>
 
 Vibecheck is a GNOME Shell extension that keeps Claude plan capacity visible
 without placing an always-on-top application over your work. It runs on any
 distribution shipping a supported GNOME Shell, under both X11 and Wayland.
 It is an independent project and is not affiliated with or endorsed by Anthropic.
+
+Vibecheck is developed in my free time, mostly by burning through the very
+limits it tracks. If it saved you from a surprise rate limit, help me keep my
+Claude subscription paid:
+
+[![Support me on Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/N5E229GJPZ)
+[![Sponsor on GitHub](https://img.shields.io/badge/Sponsor-EA4AAA?style=for-the-badge&logo=githubsponsors&logoColor=white)](https://github.com/sponsors/SelfRef)
+[![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/SelfRef/donate)
+
+## Features
 
 ![Remaining usage in the top bar and on the desktop card](.github/screenshot.png)
 
@@ -31,14 +49,6 @@ one starts counting right away.
 > screen. Vibecheck reads it through Claude Code by default, which absorbs most
 > changes, but a Claude Code or server-side change may temporarily break live
 > data.
-
-Vibecheck is developed in my free time, mostly by burning through the very
-limits it tracks. If it saved you from a surprise rate limit, help me keep my
-Claude subscription paid:
-
-[![Support me on Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/N5E229GJPZ)
-[![Sponsor on GitHub](https://img.shields.io/badge/Sponsor-EA4AAA?style=for-the-badge&logo=githubsponsors&logoColor=white)](https://github.com/sponsors/SelfRef)
-[![Donate using Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/SelfRef/donate)
 
 ## Status
 
