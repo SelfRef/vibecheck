@@ -7,9 +7,7 @@ discovered at runtime, and what contributed to usage on this machine.
 ## Workflow
 
 - Work and commit on `master`, the only branch.
-- Use `pnpm`. Run `pnpm check` before every commit.
-- UI or Shell changes: run `pnpm verify:shell`; try them by hand with
-  `pnpm dev:nested`.
+- Use `pnpm`. Run `pnpm build` before every commit; CI runs the rest.
 - Releases are cut by the manual Release workflow, which bumps the version and
   moves the `Unreleased` changelog section under it. Add user-visible changes
   to `CHANGELOG.md` under `Unreleased`.
